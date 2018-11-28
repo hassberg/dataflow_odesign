@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="dataflow" version="12.0.0.2017041100">
+  <ownedViewpoints name="SystemModel">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Overview" domainClass="systemmodel::System" enablePopupBars="true">
+      <metamodel href="http://sdq.ipd.kit.edu/dataflow/systemmodel#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="OperationNode" domainClass="systemmodel::Operation">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelPosition="node" resizeKind="NSEW" width="18" height="8">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="Return Value" domainClass="systemmodel::ReturnValueRef">
+          <style xsi:type="style:NoteDescription" labelExpression="feature:returnValue" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="callingrelation" sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetFinderExpression="feature:callee" sourceFinderExpression="feature:caller" domainClass="systemmodel::OperationCall" useDomainElement="true">
+          <style sizeComputationExpression="2" routingStyle="tree">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="returnValueAssign" sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='Return%20Value']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@edgeMappings[name='callingrelation']" targetFinderExpression="service:getReturnValue()">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="helpfull1" sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='Return%20Value']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetFinderExpression="service:getReturnValueToCallee()">
+          <style lineStyle="dot" targetArrow="NoDecoration" sizeComputationExpression="0">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="helpfull2" sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='Return%20Value']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetFinderExpression="service:getReturnValueToCaller()">
+          <style lineStyle="dot" targetArrow="NoDecoration" sizeComputationExpression="0">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.trust4.sirius.dataflow.design.Services"/>
+  </ownedViewpoints>
+</description:Group>
