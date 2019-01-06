@@ -5,9 +5,9 @@
       <metamodel href="http://sdq.ipd.kit.edu/dataflow/systemmodel#/"/>
       <defaultLayer name="Default">
         <nodeMappings name="Usages" domainClass="systemmodel::SystemUsage">
-          <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
+          <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW" width="18" height="8">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
           </style>
         </nodeMappings>
@@ -46,10 +46,22 @@
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
-            <endLabelStyleDescription showIcon="false" labelExpression="service:getReturnValueAssignment()">
-              <labelFormat>italic</labelFormat>
+          </style>
+        </edgeMappings>
+        <edgeMappings sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='Usages']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetFinderExpression="feature:callee" sourceFinderExpression="feature:caller" domainClass="systemmodel::OperationCall" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </endLabelStyleDescription>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ReturnValue" semanticCandidatesExpression="service:hasReturnValueAssignment()" sourceMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetMapping="//@ownedViewpoints[name='SystemModel']/@ownedRepresentations[name='Overview']/@defaultLayer/@nodeMappings[name='OperationNode']" targetFinderExpression="feature:caller" sourceFinderExpression="feature:callee" domainClass="systemmodel::OperationCall" useDomainElement="true">
+          <style lineStyle="dash" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelExpression="service:getReturnValueAssignment()">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
           </style>
         </edgeMappings>
       </defaultLayer>
