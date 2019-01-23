@@ -1,18 +1,15 @@
-package org.trust4.sirius.dataflow.design;
+package org.palladiosimulator.pcm.dataprocessing.prolog.design;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Vector;
 
-import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.pcm.dataprocessing.prolog.prologmodel.*;
+import org.palladiosimulator.pcm.dataprocessing.prolog.prologmodel.System;
+import org.palladiosimulator.pcm.dataprocessing.prolog.prologmodel.provider.*;
 
-import edu.kit.ipd.sdq.dataflow.systemmodel.*;
-import edu.kit.ipd.sdq.dataflow.systemmodel.System;
-import edu.kit.ipd.sdq.dataflow.systemmodel.provider.*;
-import edu.kit.ipd.sdq.dataflow.systemmodel.util.SystemModelAdapterFactory;
 
-/**
- * The services class used by VSM.
- */
 public class Services {
+    
 	public String operationNumber(OperationCall call) {
 		Operation callee = call.getCallee();
 		Caller caller = call.getCaller();
@@ -25,7 +22,9 @@ public class Services {
 		}
 		return "0";
 	}    
-	public String getPreCallAssignmen(OperationCall call) {
+	
+	
+	public String getPreCallAssignment(OperationCall call) {
 		String returnValue ="";
 		for(VariableAssignment preCallStateVar : call.getPreCallStateDefinitions()) {
 			returnValue += preCallStateVar.getVariable().getName() + "\n";
@@ -45,7 +44,7 @@ public class Services {
 	
 	public String getReturnValueAssignment2(OperationCall call) {
 		String returnValue="";
-		VariableAssignmentItemProvider itemProvider = new VariableAssignmentItemProvider(new SystemModelAdapterFactory());
+		VariableAssignmentItemProvider itemProvider = new VariableAssignmentItemProvider(new PrologmodelItemProviderAdapterFactory());
 		for (VariableAssignment var : call.getCallee().getReturnValueAssignments()) {
 			returnValue += itemProvider.getText(var) +"\n";
 		}
@@ -53,7 +52,7 @@ public class Services {
 		return returnValue;
 	}
 	
-	public Collection<OperationCall> hasReturnValueAssignment(System system) {
+	public Collection<OperationCall> hasReturnValueAssignment (System system) {
 		Collection<OperationCall> available = new Vector<OperationCall>();
 		for (Operation operation : system.getOperations()) {
 			for (OperationCall calls : operation.getCalls()) {
@@ -66,22 +65,22 @@ public class Services {
 	}
 
 	public String getText(Operation op) {
-		OperationItemProvider itemProvider = new OperationItemProvider(new SystemModelAdapterFactory());
+		OperationItemProvider itemProvider = new OperationItemProvider(new PrologmodelItemProviderAdapterFactory());
 		return itemProvider.getText(op);
 	}
 	
 	public String getSystemUsagesText(SystemUsage op) {
-		SystemUsageItemProvider itemProvider = new SystemUsageItemProvider(new SystemModelAdapterFactory());
+		SystemUsageItemProvider itemProvider = new SystemUsageItemProvider(new PrologmodelItemProviderAdapterFactory());
 		return itemProvider.getText(op);
 	}
 
 	public String getPropertyDefinitionText(PropertyDefinition op) {
-		PropertyDefinitionItemProvider definitionItemProvider = new PropertyDefinitionItemProvider(new SystemModelAdapterFactory());
+		PropertyDefinitionItemProvider definitionItemProvider = new PropertyDefinitionItemProvider(new PrologmodelItemProviderAdapterFactory());
 		return definitionItemProvider.getText(op);
 	}
 
 	public String getReturnValueText(Variable op) {
-		VariableItemProvider itemProvider = new VariableItemProvider(new SystemModelAdapterFactory());
+		VariableItemProvider itemProvider = new VariableItemProvider(new PrologmodelItemProviderAdapterFactory());
 		return itemProvider.getText(op);
 	}
 }
